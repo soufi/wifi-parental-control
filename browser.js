@@ -140,7 +140,7 @@ class Browser {
     await mainFrame.waitForSelector(activationSelector)
     await mainFrame.click(activationSelector, { delay: 100 })
 
-    let selectActionSelector = `select[name='WLAN_FltAction']`
+    let selectActionSelector = `select[name='WLAN_FltAction'][value='1']`
     await mainFrame.select(selectActionSelector, '00000001')
 
     let blackList = this.getBlackList()
@@ -178,13 +178,9 @@ class Browser {
     let elem = await page.$(mainFrameSelector)
     let mainFrame = await elem.contentFrame()
 
-    let activationSelector = `input[name='WLAN_FltActive']`
-    let inputs = await mainFrame.$$(activationSelector)
-    inputs.map(async (el, index) => {
-      if (index === 1) {
-        await el.click({ delay: 100 })
-      }
-    })
+    let deactivationSelector = `input[name='WLAN_FltActive'][value='0']`
+    await mainFrame.waitForSelector(deactivationSelector)
+    await mainFrame.click(deactivationSelector)
     //save
     let saveBtnSelector = `input[name='SaveBtn']`
     await mainFrame.click(saveBtnSelector, { delay: 100 })
@@ -195,6 +191,13 @@ class Browser {
     if (this.wifiPage) {
       await this.wifiPage.close()
       this.wifiPage = null
+    }
+  }
+
+  async close() {
+    if (this.instance) {
+      await this.instance.close()
+      this.instance = null
     }
   }
 
