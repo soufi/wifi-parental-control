@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config({ path: '/home/pi/Documents/parentalcontrol/.env' })
 const { logger } = require('./logger.js')
 const Browser = require('./browser.js')
 const { CronJob } = require('cron')
