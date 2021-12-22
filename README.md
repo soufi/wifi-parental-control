@@ -40,7 +40,7 @@ Here's an example of systemd service:
 [Unit]
 Description=wifi control parental app
 Documentation=https://github.com/soufi/wifi-parental-control
-After=ulti-user.target
+After=graphical.target
 
 [Service]
 Environment=DOTENV_FILE_PATH=/home/pi/Documents/parentalcontrol/.env
@@ -50,6 +50,6 @@ ExecStart=/home/pi/.nvm/versions/node/v16.13.1/bin/node /home/pi/Documents/paren
 Restart=on-failure
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=graphical.target
 ```
 
