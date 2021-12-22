@@ -24,7 +24,8 @@ class Browser {
 
   getBlackList() {
     return [
-      "CC:CC:CC:CC:CC:CC"
+      "D0:D2:B0:2F:D0:C0",
+      "64:a2:00:28:27:d7"
     ]
   }
 
