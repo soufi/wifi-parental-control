@@ -1,9 +1,10 @@
 const winston = require("winston")
 require("winston-daily-rotate-file")
-const APP_NAME = "parental-control"
-const LOG_DIR = "/home/pi/Documents/parentalcontrol/logs"
-const LOG_LEVEL_CONSOLE = "error"
-const LOG_LEVEL_FILE = "info"
+const path = require('path')
+const APP_NAME = process.env.APP_NAME || 'parental-control'
+const LOG_DIR = path.join(process.env.ROOT_FOLDER || '.','/logs')
+const LOG_LEVEL_CONSOLE = process.env.LOG_LEVEL_CONSOLE || 'error'
+const LOG_LEVEL_FILE = process.env.LOG_LEVEL_FILE || 'info'
 /*****************************************************************/
 /*******************           Logger           ***************/
 /*****************************************************************/
