@@ -7,7 +7,7 @@ const blackList = process.env.BLACK_LIST.split(',')
 
 let activationJob, deActivationJob
 
-const activateFilter = () => {
+const activateFilter = async () => {
   logger.log('info', "activating filter")
   let b = new Browser({
     wifiCreds: {
@@ -21,7 +21,7 @@ const activateFilter = () => {
   await b.close()
 }
 
-const deactivateFilter = () => {
+const deactivateFilter = async () => {
   logger.log('info', "deactivating filter")
   let b = new Browser({
     wifiCreds: {
@@ -35,7 +35,7 @@ const deactivateFilter = () => {
   await b.close()
 }
 
-const main = async () => {
+const main = () => {
   logger.log('info', "started program")
 
   activationJob = new CronJob('0 0 23 * * *', activateFilter, null, true)
