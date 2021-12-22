@@ -3,6 +3,7 @@ const { logger } = require('./logger.js')
 const Browser = require('./browser.js')
 const { CronJob } = require('cron')
 
+const blackList = process.env.BLACK_LIST.split(',')
 
 const main = async () => {
   logger.log('info', "started program")
@@ -13,7 +14,7 @@ const main = async () => {
         username: process.env.WIFI_ADMIN_USERNAME,
         pwd: process.env.WIFI_ADMIN_PASSWORD
       }
-    })
+    }, blackList)
     await b.launch()
     await b.newWifiPage()
     await b.wifiPageActivateFilter()
@@ -27,7 +28,7 @@ const main = async () => {
         username: process.env.WIFI_ADMIN_USERNAME,
         pwd: process.env.WIFI_ADMIN_PASSWORD
       }
-    })
+    }, blackList)
     await b.launch()
     await b.newWifiPage()
     await b.wifiPageDeactivateFilter()

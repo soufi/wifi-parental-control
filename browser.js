@@ -4,7 +4,7 @@ const { logger } = require('./logger.js')
 
 class Browser {
 
-  constructor(credentials = {}, opts = {}) {
+  constructor(credentials = {}, blackList = [], opts = {}) {
     if (opts && opts.constructor === Object) {
       this.opts = Object.assign(this.getDefaultOpts(), opts)
     } else {
@@ -16,6 +16,12 @@ class Browser {
     } else {
       this.wifiCreds = { username: '', pwd: '' }
     }
+
+    if (Array.isArray(blackList)) {
+      this.blackList = blackList
+    } else {
+      this.blackList = []
+    }
   }
 
   getDataFilesDir() {
@@ -23,10 +29,7 @@ class Browser {
   }
 
   getBlackList() {
-    return [
-      "D0:D2:B0:2F:D0:C0",
-      "64:a2:00:28:27:d7"
-    ]
+    return this.blackList
   }
 
   /**
@@ -61,6 +64,10 @@ class Browser {
     return this.wifiCreds
   }
 
+  getWifiPage() {
+    return this.wifiPage
+  }
+
   isLoginPage(page) {
     return page.url().includes('login')
   }
@@ -83,7 +90,7 @@ class Browser {
   }
 
   wifiPageGo2Home() {
-    let page = this.wifiPage
+    let page = this.getWifiPage()
     return page.goto(this.getWifiPageUrl(), {
       waitUntil: "networkidle2"
     })
@@ -94,7 +101,7 @@ class Browser {
    * @returns Promise
    */
   async loginWifiPage() {
-    let page = this.wifiPage
+    let page = this.getWifiPage()
     if (!this.isLoginPage(page)) { return }
     let creds = this.getWifiCreds()
     let loginNameSelector = `form[name='Login_Form'] input[name='Login_Name']`
@@ -109,7 +116,7 @@ class Browser {
   }
 
   async wifiPageGo2Wlan() {
-    let page = this.wifiPage
+    let page = this.getWifiPage()
     if (this.isLoginPage(page)) { await this.loginWifiPage() }
 
     let navFrameSelector = `frame[name='navigation']`
@@ -127,7 +134,7 @@ class Browser {
   }
 
   async wifiPageActivateFilter() {
-    let page = this.wifiPage
+    let page = this.getWifiPage()
     if (this.isLoginPage(page)) { await this.loginWifiPage() }
     try {
       await this.wifiPageGo2Wlan()
@@ -169,7 +176,7 @@ class Browser {
 
 
   async wifiPageDeactivateFilter() {
-    let page = this.wifiPage
+    let page = this.getWifiPage()
     if (this.isLoginPage(page)) { await this.loginWifiPage() }
     try {
       await this.wifiPageGo2Wlan()
