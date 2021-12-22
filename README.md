@@ -1,6 +1,6 @@
 # parental-control
 
-This project aims to provide a tool to apply a filter on TP-LINK router (300Mbs) that prevents specific MAC addresses from connecting to wireless network (for parental control for example).
+This project aims to provide a tool to apply a filter on TP-LINK router (TD-W8968) that prevents specific MAC addresses from connecting to wireless network (for parental control for example).
 
 The basic idea is that there's 2 jobs that launch to activate and deactivate the filter at specific times. 
 
