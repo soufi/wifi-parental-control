@@ -43,8 +43,9 @@ class Browser {
       args: [
         //"--start-fullscreen",
         //"--start-maximized",
-        //"--disable-infobars",
-        // "--disable-extensions",
+        "--disable-infobars",
+        "--disable-extensions",
+        "--no-sandbox",
         "--ignore-certificate-errors",
       ],
       ignoreDefaultArgs: ["--enable-automation"],
@@ -149,11 +150,11 @@ class Browser {
     let elem = await page.$(mainFrameSelector)
     let mainFrame = await elem.contentFrame()
 
-    let activationSelector = `input[name='WLAN_FltActive']`
+    let activationSelector = `input[name='WLAN_FltActive'][value='1']`
     await mainFrame.waitForSelector(activationSelector)
     await mainFrame.click(activationSelector, { delay: 100 })
 
-    let selectActionSelector = `select[name='WLAN_FltAction'][value='1']`
+    let selectActionSelector = `select[name='WLAN_FltAction']`
     await mainFrame.select(selectActionSelector, '00000001')
 
     let blackList = this.getBlackList()
