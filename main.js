@@ -60,8 +60,9 @@ process.once('SIGTERM', (code) => {
   logger.log('info', "Stop signal received.")
 })
 
-process.prependOnceListener('uncaughtException', (err) => {
-  logger.error(err)
+process.on('uncaughtException', (err, origin) => {
+  logger.error(err.message)
+  process.exit(1)
 })
 
 main()
