@@ -23,6 +23,8 @@ ROOT_FOLDER="/your/project/full/path"
 APP_NAME="parental_control"
 LOG_LEVEL_CONSOLE="error"
 LOG_LEVEL_FILE="info"
+LAUNCH_ACTIVATION=true        #launches activation filter on startup
+LAUNCH_DEACTIVATION=false     #launches deactivation filter on startup if activation not present
 ```
 
 > **N.B:** By default, the program expects a `.env` in the root folder. but if you wish to use another file provide the environemnt paramter `DOTENV_FILE_PATH`.

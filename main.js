@@ -43,6 +43,13 @@ const main = () => {
 
   activationJob.start()
   deActivationJob.start()
+
+  if (process.env.LAUNCH_ACTIVATION) {
+    activateFilter()
+  }
+  else if (process.env.LAUNCH_DEACTIVATION) {
+    deactivateFilter()
+  }
 }
 
 process.once('SIGINT', (code) => {

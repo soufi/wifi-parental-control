@@ -68,6 +68,11 @@ class Browser {
     return this.wifiPage
   }
 
+  /**
+   * check if the page is a login page
+   * @param {puppeteer.Page} page 
+   * @returns true if the page is a login page
+   */
   isLoginPage(page) {
     return page.url().includes('login')
   }
